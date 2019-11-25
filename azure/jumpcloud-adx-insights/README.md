@@ -110,9 +110,8 @@ $ terraform output funcapp_name
 Create a Python 3.6 environment with Conda, then test the provided Azure Function locally before publishing it to Azure (you will need Conda and the Azure Functions Core Tools installed on your machine - see the [Prerequisites](#Prerequisites) section). After cloning the repository execute the following commands:
 
 ```shell
-$ cd functions
-$ conda create -p .venv/functions python=3.6
-$ conda activate .venv/functions
+$ conda create -n azure-functions python=3.6
+$ conda activate azure-functions
 $ pip install -r requirements.txt
 ```
 
@@ -121,7 +120,7 @@ You can test the function locally by entering:
 $ func host start
 ```
 
-If the Twitter client application is running and receiving Tweets, you should see each tweet being processed and logged to the console by the Azure Function.
+You should see each each function downloading data from JumpCloud and ingesting it into Azure Data Explorer.
 
 You are now ready to publish the function to Azure, executing the following command (replacing {FUNCAPP_NAME} with the **funcapp_name** value output by Terraform):
 
@@ -129,7 +128,7 @@ You are now ready to publish the function to Azure, executing the following comm
 $ func azure functionapp publish {FUNCAPP_NAME} --build remote
 ```
 
-_Congratulations! You have successfully setup an end-to-end, serverless real-time processing application on Microsoft Azure!_
+_Congratulations! You have successfully setup an end-to-end pipeline to download and analyze JumpCloud data with Microsoft Azure services!_
 
 # Cleanup the allocated resources
 
