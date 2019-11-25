@@ -1,0 +1,65 @@
+// Count how many Apps we have.
+Apps
+| count 
+
+// Get a sample of 10 Apps to see how the data looks like.
+Apps
+| take 10
+
+// Count Apps per unique System and filter out the rows
+// where the number of Apps is less than 200.
+Apps
+| summarize num_of_records=count() by system_id
+| where num_of_records >= 200
+
+// Define a function that accept a table with an attribute `batch_time`
+// and returns only the rows with the maximum batch_time.
+// This is to allow returning data for the last snapshot taken,
+// since we ingest in Kusto hourly snapshots.
+let LatestBatchId = (T:(batch_time:datetime)) {
+let batch_id = toscalar(T | summarize max(batch_time));
+T | where batch_time == batch_id
+};
+LatestBatchId(OsVersion)
+
+// Find out all the machines that are not compliant, where we define 
+// compliant a machine that has deployed a minimum version of an OS.
+let LatestBatchId = (T:(batch_time:datetime)) {
+let batch_id = toscalar(T | summarize max(batch_time));
+T | where batch_time == batch_id
+};
+let MinVersions = dynamic({
+    "Mac OS X":                        "10.14.5",
+    "Microsoft Windows 10 Enterprise": "10.0.17763"});
+LatestBatchId(OsVersion)
+| extend MinVersion = parse_version(tostring(MinVersions[name]))
+| extend CurrVersion = parse_version(['version'])
+| extend IsCompliant = CurrVersion >= MinVersion
+| where not(IsCompliant)
+
+// Display on a bar chart the number of compliant and non-compliant machines,
+// including a list of non-compliant ones for the purpose of investigating them.
+let LatestBatchId = (T:(batch_time:datetime)) {
+let batch_id = toscalar(T | summarize max(batch_time));
+T | where batch_time == batch_id
+};
+let MinVersions = dynamic({
+    "Mac OS X":                        "10.14.5",
+    "Microsoft Windows 10 Enterprise": "10.0.17763"});
+LatestBatchId(OsVersion)
+| extend MinVersion = parse_version(tostring(MinVersions[name]))
+| extend CurrVersion = parse_version(['version'])
+| extend IsCompliant = CurrVersion >= MinVersion
+| summarize Hostnames=make_set(iif(not(IsCompliant), system_id, '')), compliant=countif(IsCompliant), non_compliant=countif(not(IsCompliant)) by name
+| render barchart with (kind=stacked)
+
+
+// An alternative to `invoke` the LatestBatchId() function.
+OsVersion
+| invoke LatestBatchId()
+| count
+
+// An alternative way to select the latest batch through the `arg_max` function: 
+// it will select, for each system id, all columns whose batch_time is the maximum one.
+OsVersion
+| summarize arg_max(batch_time, *) by system_id

@@ -1,0 +1,354 @@
+.drop table ChromeExtensions ifexists
+
+.create table ChromeExtensions (
+    uid: string
+    ,name: string
+    ,identifier: string
+    ,version: string
+    ,description: string
+    ,locale: string
+    ,update_url: string
+    ,author: string
+    ,ispersistent: bool
+    ,path: string
+    ,permissions: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table SafariExtensions ifexists
+
+.create table SafariExtensions (
+    uid: string
+    ,name: string
+    ,identifier: string
+    ,version: string
+    ,sdk: string
+    ,update_url: string
+    ,author: string
+    ,developer_id: string
+    ,description: string
+    ,path: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table Mounts ifexists
+
+.create table Mounts (
+    device: string
+    ,device_alias: string
+    ,path: string
+    ,type: string
+    ,blocks_size: long
+    ,blocks: long
+    ,blocks_free: long
+    ,blocks_available: long
+    ,inodes: long
+    ,inodes_free: long
+    ,props: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table BrowserPlugins ifexists
+
+.create table BrowserPlugins (
+    uid: string
+    ,name: string
+    ,identifier: string
+    ,version: string
+    ,sdk: string
+    ,description: string
+    ,development_region: string
+    ,isnative: bool
+    ,path: string
+    ,isdisabled: bool
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table FirefoxAddons ifexists
+
+.create table FirefoxAddons (
+    uid: string
+    ,name: string
+    ,identifier: string
+    ,creator: string
+    ,type: string
+    ,version: string
+    ,description: string
+    ,source_url: string
+    ,isvisible: bool
+    ,isactive: bool
+    ,isdisabled: bool
+    ,isautoupdate: bool
+    ,location: string
+    ,path: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table Apps ifexists
+
+.create table Apps (
+    name: string
+    ,path: string
+    ,bundle_executable: string
+    ,bundle_identifier: string
+    ,bundle_name: string
+    ,bundle_short_version: string
+    ,bundle_version: string
+    ,bundle_package_type: string
+    ,environment: string
+    ,element: string
+    ,compiler: string
+    ,development_region: string
+    ,display_name: string
+    ,info_string: string
+    ,minimum_system_version: string
+    ,category: string
+    ,applescript_enabled: string
+    ,copyright: string
+    ,last_opened_time: long
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table DiskEncryption ifexists
+
+.create table DiskEncryption (
+    name: string
+    ,uuid: string
+    ,isencrypted: bool
+    ,type: string
+    ,uid: string
+    ,user_uuid: string
+    ,encryption_status: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table OsVersion ifexists
+
+.create table OsVersion (
+    name: string
+    ,version: string
+    ,major: int
+    ,minor: int
+    ,patch: int
+    ,build: string
+    ,platform: string
+    ,platform_like: string
+    ,codename: string
+    ,install_date: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table InterfaceAddresses ifexists
+
+.create table InterfaceAddresses (
+    interface: string
+    ,address: string
+    ,mask: string
+    ,broadcast: string
+    ,point_to_point: string
+    ,type: string
+    ,friendly_name: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table Groups ifexists
+
+.create table Groups (
+    gid: string
+    ,gid_signed: string
+    ,groupname: string
+    ,group_sid: string
+    ,comment: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table Users ifexists
+
+.create table Users (
+    uid: string
+    ,gid: string
+    ,uid_signed: string
+    ,gid_signed: string
+    ,username: string
+    ,description: string
+    ,directory: string
+    ,shell: string
+    ,uuid: string
+    ,type: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table SystemInfo ifexists
+
+.create table SystemInfo (
+    hostname: string
+    ,uuid: string
+    ,cpu_type: string
+    ,cpu_subtype: string
+    ,cpu_brand: string
+    ,cpu_physical_cores: int
+    ,cpu_logical_cores: int
+    ,cpu_microcode: string
+    ,physical_memory: long
+    ,hardware_vendor: string
+    ,hardware_model: string
+    ,hardware_version: string
+    ,hardware_serial: string
+    ,computer_name: string
+    ,local_hostname: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table BitlockerInfo ifexists
+
+.create table BitlockerInfo (
+    device_id: string
+    ,drive_letter: string
+    ,persistent_volume_id: string
+    ,conversion_status: bool
+    ,protection_status: bool
+    ,encryption_method: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table DiskInfo ifexists
+
+.create table DiskInfo (
+    partitions: int
+    ,disk_index: int
+    ,type: string
+    ,id: string
+    ,pnp_device_id: string
+    ,disk_size: long
+    ,manufacturer: string
+    ,hardware_model: string
+    ,name: string
+    ,serial: string
+    ,description: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table EtcHosts ifexists
+
+.create table EtcHosts (
+    address: string
+    ,hostnames: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table LogicalDrives ifexists
+
+.create table LogicalDrives (
+    device_id: string
+    ,type: string
+    ,free_space: long
+    ,size: long
+    ,file_system: string
+    ,boot_partition: bool
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table Patches ifexists
+
+.create table Patches (
+    csname: string
+    ,hotfix_id: string
+    ,caption: string
+    ,description: string
+    ,fix_comments: string
+    ,installed_by: string
+    ,install_date: string
+    ,installed_on: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table Programs ifexists
+
+.create table Programs (
+    name: string
+    ,version: string
+    ,install_location: string
+    ,install_source: string
+    ,language: string
+    ,publisher: string
+    ,uninstall_string: string
+    ,install_date: string
+    ,identifying_number: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table KernelInfo ifexists
+
+.create table KernelInfo (
+    version: string
+    ,arguments: string
+    ,path: string
+    ,device: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table SystemControls ifexists
+
+.create table SystemControls (
+    name: string
+    ,oid: string
+    ,subsystem: string
+    ,current_value: string
+    ,config_value: string
+    ,type: string
+    ,field_name: string
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)
+
+.drop table Uptime ifexists
+
+.create table Uptime (
+    num_days: int
+    ,num_hours: int
+    ,num_minutes: int
+    ,num_seconds: int
+    ,total_seconds: int
+    ,system_id: string
+    ,collection_time: datetime
+    ,batch_time: datetime
+)

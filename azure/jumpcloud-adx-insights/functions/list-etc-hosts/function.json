@@ -1,0 +1,20 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "name": "timer",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "0 0 * * * *",
+      "runOnStartup": true
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "outputBlob",
+      "path": "jc-data/system-insights/{DateTime:yyyy}/{DateTime:MM}/{DateTime:dd}/{DateTime:HH}/etc_hosts.json",
+      "connection": "JUMPCLOUD_DATA_CONNECTION_STRING",
+      "dataType": "string"
+    }
+  ]
+}
